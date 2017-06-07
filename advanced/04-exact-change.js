@@ -72,48 +72,37 @@ function checkCashRegister(price, cash, cid) {
         }
 
         /* divide changeDue in coins and bills using switch and the following algorithm
-         *      if changeDue >= 100 && cidObject["ONE HUNDRED"] >= 100
-         *      remove 100 from cidObject["ONE HUNDRED"]
-         *      add 100 to change["ONE HUNDRED"] and
-         *      return changeDue - 100 for recursion
+         *      if changeDue >= value && cidObject[key] >= value
+         *      remove value from cidObject[key]
+         *      add value to change[key] and
+         *      return changeDue - value for recursion
          */
+
+        var cashExchange = function (key, value) {
+            cidObject[key] -= value;
+            change[key] += value;
+            return returnChange(changeDue - value);
+        };
+
         switch (true) {
             case changeDue >= 100.00 && cidObject["ONE HUNDRED"] >= 100.00:
-                cidObject["ONE HUNDRED"] -= 100.00;
-                change["ONE HUNDRED"] += 100.00;
-                return returnChange(changeDue - 100.00);
+                return cashExchange("ONE HUNDRED", 100.00);
             case changeDue >= 20.00 && cidObject.TWENTY >= 20.00:
-                cidObject.TWENTY -= 20.00;
-                change.TWENTY += 20.00;
-                return returnChange(changeDue - 20.00);
+                return cashExchange("TWENTY", 20.00);
             case changeDue >= 10.00 && cidObject.TEN >= 10.00:
-                cidObject.TEN -= 10.00;
-                change.TEN += 10.00;
-                return returnChange(changeDue - 10.00);
+                return cashExchange("TEN", 10.00);
             case changeDue >= 5.00 && cidObject.FIVE >= 5.00:
-                cidObject.FIVE -= 5.00;
-                change.FIVE += 5.00;
-                return returnChange(changeDue - 5.00);
+                return cashExchange("FIVE", 5.00);
             case changeDue >= 1.00 && cidObject.ONE >= 1.00:
-                cidObject.ONE -= 1.00;
-                change.ONE += 1.00;
-                return returnChange(changeDue - 1.00);
+                return cashExchange("ONE", 1.00);
             case changeDue >= 0.25 && cidObject.QUARTER >= 0.25:
-                cidObject.QUARTER -= 0.25;
-                change.QUARTER += 0.25;
-                return returnChange(changeDue - 0.25);
+                return cashExchange("QUARTER", 0.25);
             case changeDue >= 0.10 && cidObject.DIME >= 0.10:
-                cidObject.DIME -= 0.10;
-                change.DIME += 0.10;
-                return returnChange(changeDue - 0.10);
+                return cashExchange("DIME", 0.10);
             case changeDue >= 0.05 && cidObject.NICKEL >= 0.05:
-                cidObject.NICKEL -= 0.05;
-                change.NICKEL += 0.05;
-                return returnChange(changeDue - 0.05);
+                return cashExchange("NICKEL", 0.05);
             case changeDue >= 0.01 && cidObject.PENNY >= 0.01:
-                cidObject.PENNY -= 0.01;
-                change.PENNY += 0.01;
-                return returnChange(changeDue - 0.01);
+                return cashExchange("PENNY", 0.01);
             default:
                 return "Insufficient Funds";
         }
