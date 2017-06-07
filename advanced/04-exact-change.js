@@ -41,7 +41,7 @@ function checkCashRegister(price, cash, cid) {
     /* turn cid into an object of key: value pairs
      * https://stackoverflow.com/questions/26454655/
      * myObject is the accumulator and is initialized as an empty object
-     *  because of the second argument in the callback function {}
+     *  because of reduce()'s second parameter {}
      * currency is the array (value of cid array) being processed ex: ["PENNY", 1.01]
      * myObject accumulates key: value because currency[0] is "PENNY" and currency[1] is 1.01
      */
